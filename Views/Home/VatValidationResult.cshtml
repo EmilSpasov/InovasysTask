@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "VAT Information";
+}
+@model VatResultViewModel
+
+<div class="text-center">
+    <h1 class="display-4">Yes, valid VAT number</h1>
+    <ul>
+        <li>Country Code: @Model.CountryCode</li>
+        <li>VAT Number: @Model.VatNumber</li>
+        <li>Name: @Model.Name</li>
+        <li>Address: @Model.Address</li>
+    </ul>
+</div>

@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "My Profile";
+}
+@model ProfileViewModel
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to my profile</h1>
+    <ul>
+        <li>Name: @Model.Name</li>
+        <li>Address: @Model.Address</li>
+        <li>Email: @Model.Email</li>
+        <li id="ddsNumber" value="@Model.DdsNumber">Dds Number: @Model.DdsNumber</li>
+    </ul>
+    <button class="btn btn-success" onclick="getData();">Download data</button>
+</div>
+
+<div id="result" style="display: none" class="text-center">
+    <ul>
+        <li id="countryCode"></li>
+        <li id="vatNumber"></li>
+        <li id="name"></li>
+        <li id="address"></li>
+    </ul>
+</div>
+
+
+@section Scripts{
+    <script>
+        function getData() {
+            $.getJSON("/Home/GetData",
+                { vatNumber: $('#ddsNumber').attr('value') },
+                function (json) {
+                    if (json == null) {
+                        $("#result").empty();
+                        $('#result').append("<h1>Could not find data for this number.<h1/>");
+                    }
+                    else {
+                        $('#countryCode').text(`Country Code: ${json.countryCode}`);
+                        $('#vatNumber').text(`VAT Number: ${json.vatNumber}`);
+                        $('#name').text(`Name: ${json.name}`);
+                        $('#address').text(`Address: ${json.address}`);
+                    }
+                    $('#result').show();
+                });
+        }
+    </script>
+}
